@@ -20,7 +20,7 @@ app.post('/posts/:id/comments', async(req, res) => {
 
     const comments = commentsByPostId[req.params.id] || []; // Dans ma variable commentsByPostId j'ajoute l'id de la route /posts/:id 
 
-    comments.push({id: commentId, content }); // Dans l'objet commentsByPostId j'ajoute en Id hexadécimal et le contenu de ma requête
+    comments.push({id: commentId, content, status: 'pending' }); // Dans l'objet commentsByPostId j'ajoute en Id hexadécimal et le contenu de ma requête
     commentsByPostId[req.params.id] = comments; // Dans le commentsByPostId avec le numéro de l'id j'ajoute le comments
 
     // Résultat : commentsByPostId{ 1: id: grgkegd7, 'Fist comment'; }
@@ -30,7 +30,8 @@ app.post('/posts/:id/comments', async(req, res) => {
         data: {
             id: commentId,
             content,
-            postId: req.params.id
+            postId: req.params.id,
+            stats: 'pending'
         }
     })
     res.status(201).send(comments);
